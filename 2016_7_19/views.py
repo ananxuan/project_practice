@@ -23,5 +23,7 @@ def search(request):
         books = Book.objects.filter(title__icontains=q)#用filter查找含q的书籍，icontains是查找关键字
         return render_to_response('search_results.html',
             {'books':books,'query':q}
-        else:
-            return HttpResponse('Please submit a search term.')
+    else:
+        # return HttpResponse('Please submit a search term.')
+        return render_to_response('search_form.html',{'error':True})
+        
