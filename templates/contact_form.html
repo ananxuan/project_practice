@@ -5,18 +5,30 @@
 <body>
   <h1>Contact us</h1>
   
-  {% if errors %}
-    <ul>
-      {% for error in errors %}
-      <li>{{ error }}</li>
-      {% endfor %}
-    </ul>
+  <!--{% if errors %}-->
+  <!--  <ul>-->
+  <!--    {% for error in errors %}-->
+  <!--    <li>{{ error }}</li>-->
+  <!--    {% endfor %}-->
+  <!--  </ul>-->
+  <!--{% endif %}-->
+  
+  <!--<form action="/contact/" method="post">#这里使用post，而不是get因为这个表单会有一个服务器操作：发送一封email-->
+  <!--  <p>Subject: <input type+"text" name="subject">-->
+  <!--  <p>Your e-mail (optional): <input type="text" name="email"></p>-->
+  <!--  <p>Message: <textarea name="message" rows="10" cols="50"></textarea></p>-->
+  <!--  <input type="submit" value="Submit">-->
+  <!--</form>-->
+  {% if form.error %}
+    <p style="color: red;">
+      Please correct the error{{ form.errors|pluralize }} below.
+    </p>
   {% endif %}
   
-  <form action="/contact/" method="post">#这里使用post，而不是get因为这个表单会有一个服务器操作：发送一封email
-    <p>Subject: <input type+"text" name="subject">
-    <p>Your e-mail (optional): <input type="text" name="email"></p>
-    <p>Message: <textarea name="message" rows="10" cols="50"></textarea></p>
+  <form action="" method="post">
+    <table>
+      {{ form.as_table }}
+    </table>
     <input type="submit" value="Submit">
   </form>
 </body>
