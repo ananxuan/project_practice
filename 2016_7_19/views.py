@@ -1,6 +1,7 @@
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
+from mysite.contact.froms import ContactForm
 
 
 #show all reuqest.META data
@@ -55,6 +56,22 @@ def contact(request):
         'subject': request.POST.get('subject', ''),
         'message': request.POST.get('message', ''),
         'email': request.POST.get('email', ''),
-    
+#use form class rewrite contact
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(resquest.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            send_mail(
+                cd['subject'],
+                cd['message'],
+                cd.get('email','noreply@example.com),
+                ['siteowner@example.com']
+            )
+            return HttpResponseRedirect('/contact/thanks/')
+        else:
+            form = ContactForm()
+        return render_to_response('contact_form.html', {'form':form})
+        
         
         
